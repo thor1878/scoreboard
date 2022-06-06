@@ -1,0 +1,39 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    margin-top: 30px;
+    width: min(500px, 90vw);
+}
+#form-header {
+    font-size: 30px;
+    font-weight: 500;
+    border-bottom: 2px solid var(--text-color-dark);
+    color: var(--text-color-dark);
+    margin-bottom: 50px;
+    padding-bottom: 10px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.form-group input {
+    font-size: 16px;
+    padding: 7px;
+}
+form button[type=submit] {
+    font-size: 18px;
+    padding: 10px;
+    background-color: var(--color2);
+    color: var(--text-color-light);
+    border: none;
+    cursor: pointer;
+}

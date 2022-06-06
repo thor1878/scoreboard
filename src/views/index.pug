@@ -1,0 +1,10 @@
+extends base.pug
+
+block style
+    link(rel="stylesheet", href="/static/css/index.css")
+
+block main
+    if user
+        h1 Welcome #{user.username}!
+    else 
+        h1 Log in or sign up, please.

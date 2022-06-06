@@ -1,0 +1,19 @@
+extends base.pug
+
+block style
+    link(rel="stylesheet", href="/static/css/login.css")
+
+block main
+    form(action="/register/validate", method="post")
+        p#form-header Sign up
+        .form-group
+            label(for="username") Username
+            input#username(type="text", name="username" required autofocus)
+        .form-group
+            label(for="new-password1") Password
+            input#new-password1(type="password", name="password1" required)
+        .form-group
+            label(for="new-password2") Confirm password
+            input#new-password2(type="password", name="password2" required)
+
+        button(type="submit") Sign up

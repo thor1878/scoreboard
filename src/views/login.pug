@@ -1,0 +1,17 @@
+extends base.pug
+
+block style
+    link(rel="stylesheet", href="/static/css/login.css")
+
+block main 
+    form(action="/login/authenticate", method="post")
+        p#form-header Log in
+        .form-group 
+            label(for="username") Username
+            input#username(type="text", name="username" required autofocus)
+
+        .form-group
+            label(for="current-password") Password
+            input#current-password(type="password", name="password" required)
+
+        button(type="submit") Log in
