@@ -5,8 +5,10 @@
     --navbar: var(--color1);
     --navlink: var(--color2);
     --form: var(--color2);
-    --text-color-light: rgb(220, 220, 220);
+    --text-color-light: rgb(245, 245, 245);
     --text-color-dark: var(--color2);
+    --even-scoreboard-color: rgb(206, 218, 229);
+    --odd-scoreboard-color: rgb(182, 194, 207);
 }
 * {
     box-sizing: border-box;

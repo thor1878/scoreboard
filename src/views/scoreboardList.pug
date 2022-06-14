@@ -1,0 +1,24 @@
+extends base.pug
+
+block style
+    link(rel="stylesheet", href="/static/css/scoreboardList.css")
+
+block main
+    h1 Your scoreboards
+    #scoreboard-container
+        #scoreboard-list
+            if scoreboards.length > 0
+                each scoreboard in scoreboards
+                    a.scoreboard(href="/scoreboards/" + scoreboard.id)
+                        p #{scoreboard.name}
+                        ul
+                            each user in scoreboard.users
+                                li #{user.username}
+            else 
+                p
+                    em You are not part of any scoreboards yet. Create your first by clicking on the button below!
+
+
+
+        a#create-scoreboard-btn(href="/scoreboards/create")
+            span.material-icons add

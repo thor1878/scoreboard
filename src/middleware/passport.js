@@ -9,7 +9,7 @@ export function setupPassport(passport) {
         usernameField: 'username',
         passwordField: 'password'
     }, async (username, password, cb) => {
-            const user = await db.oneOrNone(`SELECT hashed_password FROM account WHERE username = $1`, [
+            const user = await db.oneOrNone(`SELECT id, hashed_password FROM account WHERE username = $1`, [
                 username
             ])
             // Check if user exists and the correct password is entered
@@ -18,6 +18,7 @@ export function setupPassport(passport) {
             }
             
             return cb(null, {
+                id: user.id,
                 username: username
             });
         }
@@ -30,9 +31,12 @@ export function setupPassport(passport) {
         passReqToCallback: true
     }, async (req, username, password, cb) => {
             // Check if a user with that username already exists
-            const user = await db.oneOrNone(`SELECT username FROM account WHERE username = $1`, [
-                username
-            ])
+            const user = await db.oneOrNone(`
+                SELECT id, username 
+                FROM account 
+                WHERE username = $1`, 
+                [username]
+            )
             if (user) {
                 console.log('User already exists');
                 return cb(null, false);
@@ -45,10 +49,14 @@ export function setupPassport(passport) {
             
 
             const hashed_password = await bcrypt.hash(password, 10);
-            await db.none('INSERT INTO account (username, hashed_password) VALUES ($1, $2)', [
-                username, hashed_password
-            ])
-            cb(null, {
+            const newUser = await db.one(`
+                INSERT INTO account (username, hashed_password) 
+                VALUES ($1, $2)
+                RETURNING id`, 
+                [username, hashed_password]
+            )
+            return cb(null, {
+                id: newUser.id,
                 username: username
             })
         }

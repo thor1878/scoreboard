@@ -1,0 +1,33 @@
+extends base.pug
+
+block style
+    link(rel="stylesheet", href="/static/css/scoreboardForms.css")
+
+block main
+    h1 Create scoreboard
+    form(action="/api/scoreboards", method="post")
+        input#name-input(type="text", name="name", placeholder="Name of scoreboard..." required)
+        #invite-container
+            #invited-users
+            input#invite-input(type="text", name="users", placeholder="Invite users...")
+            #invite-input-dropdown
+        #table-container
+            table 
+                thead
+                    tr 
+                        th Player 1
+                        th Player 2
+                        th Player 3
+                tbody 
+                    tr 
+                        td ...
+                        td ...
+                        td ...
+
+            button#add-row-btn(type="button" onclick="addRow()")
+            button#add-col-btn(type="button" onclick="addCol()")
+        
+        button(type="submit") Create scoreboard
+
+block script
+    script(src="/static/js/scoreboardForm.js")

@@ -1,0 +1,109 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(90vw, 600px);
+    margin-top: 50px;
+}
+input {
+    font-size: 16px;
+    padding: 7px;
+}
+#name-input {
+    width: 50%;
+    margin-bottom: 10px;
+}
+#invite-container {
+    position: relative;
+    width: 50%;
+}
+#invited-users {
+    min-height: 40px;
+    width: 100%;
+}
+#invite-input {
+    width: 100%;
+}
+#invite-input-dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 300px;
+    z-index: 2;
+}
+#invite-input-dropdown button {
+    height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid black;
+    border-top: none;
+    border-radius: 0;
+    cursor: pointer;
+    background-color: rgb(245, 245, 245);
+}
+.invited-user {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px 5px 0;
+    background-color: var(--color1);
+    color: var(--text-color-light);
+    cursor: pointer;
+}
+#table-container {
+    position: relative;
+    width: 100%;
+    margin: 40px 0 60px;
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+button {
+    cursor: pointer;
+}
+button[type=submit] {
+    font-size: 20px;
+    background-color: var(--color2);
+    color: var(--text-color-light);
+    width: 50%;
+    padding: 5px;
+    border: none;
+}
+th {
+    text-align: left;
+}
+th, td {
+    min-width: 300px;
+    white-space: nowrap;
+    overflow-y: scroll;
+    border: 1px solid black;
+    padding: 2px 5px;
+}
+#add-row-btn {
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+#add-col-btn {
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    right: -15px;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
