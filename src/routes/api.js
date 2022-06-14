@@ -1,5 +1,4 @@
 import { Router } from "express";
-import db from "../db/db.js";
 
 import User from "../db/models/user.js";
 import Scoreboard from "../db/models/scoreboard.js";
@@ -16,12 +15,6 @@ router.get('/api/users', async (req, res) => {
         users: users.map(user => user.username),
         requestingUser: req.user.username
     })
-})
-
-router.get('/api/users/:id/scoreboards', async (req, res) => {
-    const user = await User.getById(req.user.id);
-    const scoreboards = await user.getScoreboards();
-    res.send(scoreboards);
 })
 
 // ------------- Scoreboards -------------

@@ -2,6 +2,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
 
 import db from '../db/db.js';
+import User from '../db/models/user.js';
 
 export function setupPassport(passport) {
     // Strategy for authentication
@@ -9,11 +10,10 @@ export function setupPassport(passport) {
         usernameField: 'username',
         passwordField: 'password'
     }, async (username, password, cb) => {
-            const user = await db.oneOrNone(`SELECT id, hashed_password FROM account WHERE username = $1`, [
-                username
-            ])
+            const user = await User.get({ username: username }, 'id', 'hashed_password');
+
             // Check if user exists and the correct password is entered
-            if (!user || !(await bcrypt.compare(password, user.hashed_password))) {
+            if (!user || !(await bcrypt.compare(password, user.hashedPassword))) {
                 return cb(null, false);
             }
             
@@ -31,12 +31,7 @@ export function setupPassport(passport) {
         passReqToCallback: true
     }, async (req, username, password, cb) => {
             // Check if a user with that username already exists
-            const user = await db.oneOrNone(`
-                SELECT id, username 
-                FROM account 
-                WHERE username = $1`, 
-                [username]
-            )
+            const user = await User.get({ username: username }, 'id', 'username');
             if (user) {
                 console.log('User already exists');
                 return cb(null, false);
@@ -48,13 +43,13 @@ export function setupPassport(passport) {
             }
             
 
-            const hashed_password = await bcrypt.hash(password, 10);
-            const newUser = await db.one(`
-                INSERT INTO account (username, hashed_password) 
-                VALUES ($1, $2)
-                RETURNING id`, 
-                [username, hashed_password]
-            )
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const newUser = new User({ 
+                username: username,
+                hashedPassword: hashedPassword
+            })
+            await newUser.save();
+            
             return cb(null, {
                 id: newUser.id,
                 username: username

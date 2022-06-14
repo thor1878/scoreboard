@@ -1,7 +1,5 @@
-import fetch from 'node-fetch';
 import { Router } from 'express'
 
-import db from '../db/db.js';
 import User from '../db/models/user.js';
 
 const router = new Router();
@@ -9,7 +7,7 @@ const router = new Router();
 // List 
 router.get('/scoreboards', async (req, res) => {
     // Get all scoreboards that the user is part of
-    const user = await User.getById(req.user.id);
+    const user = await User.get({ id: req.user.id }, 'id', 'username');
     const scoreboards = await user.getScoreboards();
     
     // Find all the users that are part of each scoreboard

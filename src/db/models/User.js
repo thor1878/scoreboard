@@ -2,22 +2,38 @@ import db from "../db.js";
 import Scoreboard from "./scoreboard.js";
 
 class User {
-    constructor(id, username, hashedPassword) {
+    constructor({ id, username, hashedPassword }) {
         this.id = id;
         this.username = username;
         this.hashedPassword = hashedPassword;
     }
-    static async getAll() {
+    static async get(identifier, ...columns) {
+        let user;
+        if (identifier.id) {
+            user = await db.oneOrNone(
+                `SELECT $1:name
+                FROM account
+                WHERE id = $2`,
+                [columns, identifier.id]
+            )
+        } else if (identifier.username) {
+            user = await db.oneOrNone(
+                `SELECT $1:name
+                FROM account
+                WHERE username = $2`,
+                [columns, identifier.username]
+            )
+        } else {
+            console.log('No user found');
+        }
 
-    }
-    static async getById(id) {
-        const user = await db.oneOrNone(
-            `SELECT id, username
-            FROM account
-            WHERE id = $1`,
-            [id]
-        )
-        return new User(user.id, user.username);
+        if (!user) return;
+
+        return new User({
+            id: user.id,
+            username: user.username,
+            hashedPassword: user.hashed_password
+        })
     }
     static async search(query) {
         const users = await db.manyOrNone(`
