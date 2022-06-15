@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import User from '../db/models/user.js';
+import Scoreboard from '../db/models/scoreboard.js';
 
 const router = new Router();
 
@@ -25,8 +26,12 @@ router.get('/scoreboards/create', (req, res) => {
 
 
 // Detail 
-router.get('/scoreboards/:id', (req, res) => {
+router.get('/scoreboards/:id', async (req, res) => {
+    const scoreboard = await Scoreboard.getById(req.params.id);
+    scoreboard.tableString = scoreboard.tableString.replaceAll(' contenteditable="true"', '');
+    const users = await scoreboard.getUsers();
 
+    res.render('scoreboardDetail', { scoreboard: scoreboard, users: users });
 })
 
 // Update 

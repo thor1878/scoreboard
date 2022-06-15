@@ -1,0 +1,13 @@
+extends base.pug
+
+block style
+    link(rel="stylesheet", href="/static/css/scoreboardDetail.css")
+
+block main
+    h1 #{scoreboard.name}
+    #users
+        ul 
+            each user in users
+                li #{user.username}
+
+    #table !{scoreboard.tableString}

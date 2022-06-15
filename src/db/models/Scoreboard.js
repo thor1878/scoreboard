@@ -12,7 +12,13 @@ class Scoreboard {
 
     }
     static async getById(id) {
-
+        const scoreboard = await db.oneOrNone(
+            `SELECT *
+            FROM scoreboard
+            WHERE id = $1`,
+            [id]
+        )
+        return new Scoreboard(scoreboard.id, scoreboard.name, scoreboard.table_string)
     }
     async save() {
         this.id = (await db.one(
