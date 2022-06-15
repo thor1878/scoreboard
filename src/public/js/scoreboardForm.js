@@ -81,9 +81,9 @@ function addRow() {
     const row = document.createElement('tr');
 
     for (const cell of table.rows[0].cells) {
-        const cell = document.createElement('td');
-        cell.setAttribute('contenteditable', 'true');
-        row.append(cell);
+        const td = document.createElement('td');
+        td.setAttribute('contenteditable', 'true');
+        row.append(td);
     }
 
     table.tBodies[0].append(row);

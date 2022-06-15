@@ -50,7 +50,7 @@ class User {
             INSERT INTO account (username, hashed_password) 
             VALUES ($1, $2)
             RETURNING id`, 
-            [this.username, this.hashed_password]
+            [this.username, this.hashedPassword]
         )).id
     }
     async getScoreboards() {
