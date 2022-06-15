@@ -1,7 +1,6 @@
 import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
 
-import db from '../db/db.js';
 import User from '../db/models/user.js';
 
 export function setupPassport(passport) {
@@ -41,7 +40,6 @@ export function setupPassport(passport) {
                 console.log('Passwords does not match');
                 return cb(null, false);
             }
-            
 
             const hashedPassword = await bcrypt.hash(password, 10);
             const newUser = new User({ 

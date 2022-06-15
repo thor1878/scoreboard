@@ -3,7 +3,7 @@ import pgPromise from 'pg-promise';
 const options = {}
 const pgp = pgPromise(options);
 
-const db = pgp('postgres://postgres:password@localhost:5432/scoreboard');
+const db = pgp(process.env.DB_CONN_STRING);
 
 async function setupDB() {
     // await db.none('DROP TABLE IF EXISTS account_scoreboard');
